@@ -31,7 +31,7 @@ if os.path.exists(input_filename):
 
             fo.close()
 else:
-    print "Input file is not exist!\nUsage: python [filename].py -i <inputFile>"
+    print "Input file is not exist!\nUsage: python [filename].py <inputFile>"
     os._exit(-1)
 # TODO: Create your from_address
 try:
@@ -49,13 +49,11 @@ except Exception as e:
     print('Failed to create from_address.')
     sys.exit(1)
 
-errors_file_fields = ['error'] #??
 
 # create the output directory,
 output_dir = os.path.join('.',  'output')
 if not os.path.isdir(output_dir):
     os.mkdir(output_dir)
-
 timestamp = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
 
 try:
@@ -102,23 +100,19 @@ try:
                     },
                     file=letter_html,
                     merge_variables={
-                        'date':   datetime.datetime.now().strftime("%m/%d/%Y"),
                         'name':   Name,
                         'message': Message
                     },
                     color=True
                 )
-                print('url:'+letter.url)
+                print('Success: url:'+letter.url)
             except Exception as e:
                 error_row = {'error': e}
-                errors.write(error_row)
                 sys.stdout.write('E')
                 sys.stdout.flush()
             else:
                 success.write(letter.url)
 
-                # Print success
-                #sys.stdout.write('.')
                 sys.stdout.flush()
 
 
